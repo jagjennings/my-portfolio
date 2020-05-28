@@ -4,6 +4,26 @@
   width: 650px;
 }
 
-#greeting-container {
-  margin-top: 20px;
+img {
+  float: left;
+  max-height:350px;
+  max-width: 45%;
+  padding: 5px;
+}
+
+#images {
+  float: left;
+  width: 100%;
+}
+
+.image-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.image-thumbnails img {
+  margin: 10px;
+  max-height: 640px;
+  max-width: 654px;
 }
