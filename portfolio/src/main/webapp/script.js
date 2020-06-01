@@ -27,7 +27,7 @@ function addRandomFact() {
   factContainer.innerText = fact;
 }
 
-function getDataUsingArrowFunctions() {
+function getData() {
   fetch('/data').then(response => response.json()).then((data) => {
     document.getElementById('data-container').innerText = data;
   });
