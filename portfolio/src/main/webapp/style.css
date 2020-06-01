@@ -27,3 +27,7 @@ img {
   max-height: 640px;
   max-width: 654px;
 }
+
+#data-container {
+  margin-top: 20px;
+}
