@@ -28,18 +28,26 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+  private ArrayList<String> comments = new ArrayList<String>();
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    ArrayList<String> dataList = new ArrayList<String>();
-    dataList.add("Hi! I hope you are having a great day!");
-    dataList.add("How are you?");
-    dataList.add("Do you have any questions for me?");
-    dataList.add("Ahh! Incredible!");
-
-    String json = convertToJsonUsingGson(dataList);
 
     response.setContentType("application/json");
+    String json = convertToJsonUsingGson(comments);
     response.getWriter().println(json);
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the input from the form.
+    String comment = getParameter(request, "text-input", "");
+
+    response.setContentType("text/html");
+    response.getWriter().println(comment);
+
+    // Redirect back to the HTML page.
+    //response.sendRedirect("/index.html");
   }
 
   /**
@@ -51,4 +59,13 @@ public class DataServlet extends HttpServlet {
     String json = gson.toJson(dataList);
     return json;
   }
+
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
+  }
 }
+
