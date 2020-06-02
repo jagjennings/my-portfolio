@@ -29,8 +29,8 @@ function addRandomFact() {
 
 function getComments() {
   fetch('/data').then(response => response.json()).then((comment) => {
-    document.getElementById('comment').innerText = comment;
-  }
+    document.getElementById('comments-container').innerText = comment;
+  });
 }
 
 function getData() {
