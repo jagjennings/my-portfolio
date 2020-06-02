@@ -36,7 +36,7 @@ function addRandomFact() {
 function getComments() {
   fetch('/data').then(response => response.json()).then((comment) => {
     document.getElementById('comment').innerText = comment;
-  }
+  });
 }
 
 function getData() {
