@@ -27,6 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  
+  private static final Gson gson = new Gson();
 
   private ArrayList<String> comments = new ArrayList<String>();
 
@@ -55,7 +57,6 @@ public class DataServlet extends HttpServlet {
    * the Gson library dependency to pom.xml.
    */
   private String convertToJsonUsingGson(ArrayList dataList) {
-    Gson gson = new Gson();
     String json = gson.toJson(dataList);
     return json;
   }
