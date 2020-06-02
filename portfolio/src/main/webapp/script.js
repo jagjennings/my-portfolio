@@ -32,7 +32,7 @@ function getComments() {
   fetch('/data').then(response => response.json()).then((tasks) => {
     const taskListElement = document.getElementById('comments-container');
     tasks.forEach((task) => {
-      taskListElement.appendChild(createListElement(task.comment));
+      taskListElement.appendChild(createListElement(task.name + ": " + task.comment));
     })
   });
 }
