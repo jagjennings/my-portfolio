@@ -29,26 +29,16 @@ import javax.servlet.http.HttpServletResponse;
 public class DataServlet extends HttpServlet {
   
   private static final Gson gson = new Gson();
-  // private ArrayList<String> dataList;
   private ArrayList<String> comments;
 
   @Override
   public void init() {
     comments = new ArrayList<>();
-    // dataList = new ArrayList<>();
-    // dataList.add("Hi! I hope you are having a great day!");
-    // dataList.add("How are you?");
-    // dataList.add("Do you have any questions for me?");
-    // dataList.add("Ahh! Incredible!");
     
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // response.setContentType("application/json");
-    // String json = convertToJsonUsingGson(dataList);
-    // response.getWriter().println(json);
-
     response.setContentType("application/json");
     String json = convertToJsonUsingGson(comments);
     response.getWriter().println(json);
@@ -59,10 +49,6 @@ public class DataServlet extends HttpServlet {
     // Get the input from the form.
     String comment = getParameter(request, "text-input", "");
     comments.add(comment);
-
-    response.setContentType("application/json");
-    String json = convertToJsonUsingGson(comments);
-    response.getWriter().println(json);
 
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");
