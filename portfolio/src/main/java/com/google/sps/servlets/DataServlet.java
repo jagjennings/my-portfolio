@@ -29,12 +29,15 @@ import javax.servlet.http.HttpServletResponse;
 public class DataServlet extends HttpServlet {
   
   private static final Gson GSON = new Gson();
+  private ArrayList<String> comments;
 
-  private ArrayList<String> comments = new ArrayList<String>();
+  @Override
+  public void init() {
+    comments = new ArrayList<>();
+  }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
     response.setContentType("application/json");
     String json = GSON.toJson(comments);
     response.getWriter().println(json);
@@ -44,9 +47,7 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
     String comment = getParameter(request, "text-input", "");
-
-    response.setContentType("text/html");
-    response.getWriter().println(comment);
+    comments.add(comment);
 
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");

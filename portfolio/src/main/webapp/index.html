@@ -40,7 +40,12 @@
 
       <p>Click <a href="ceramics.html">here</a> to see some of my ceramic creations!</p>
 
-      <ul id="comments"></ul>
+      <p>Click here for a message from the DataServlet:</p>
+      <button onclick="getData()">Fetch Data</button>
+      <div id="data-container"></div>
+
+      <h3>Comments</h3>
+      <div id="comments-container"></div>
       
       <form action="/data" method="POST">
 
@@ -48,7 +53,7 @@
         <textarea name="text-input"></textarea>
         <br/><br/>
 
-        <input type="submit" />
+        <input type="submit" onclick="getComments()"/>
       </form>
     </div>
   </body>
