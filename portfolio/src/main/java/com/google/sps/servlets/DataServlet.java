@@ -28,19 +28,18 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   
-  private static final Gson gson = new Gson();
+  private static final Gson GSON = new Gson();
   private ArrayList<String> comments;
 
   @Override
   public void init() {
     comments = new ArrayList<>();
-    
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
-    String json = convertToJsonUsingGson(comments);
+    String json = GSON.toJson(comments);
     response.getWriter().println(json);
   }
 
@@ -52,15 +51,6 @@ public class DataServlet extends HttpServlet {
 
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");
-  }
-
-  /**
-   * Converts a ServerStats instance into a JSON string using the Gson library. Note: We first added
-   * the Gson library dependency to pom.xml.
-   */
-  private String convertToJsonUsingGson(ArrayList dataList) {
-    String json = gson.toJson(dataList);
-    return json;
   }
 
   private String getParameter(HttpServletRequest request, String name, String defaultValue) {
