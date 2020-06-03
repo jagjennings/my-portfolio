@@ -16,8 +16,10 @@
  * Adds a random fact to the page.
  */
 function addRandomFact() {
-  const facts =
-      ['I like to make wheel-thrown pottery.', 'I love watching Survivor.', 'I am learning Mandarin.', 'I was born on Friday the 13th.', 'I am a Libra.'];
+  const facts = [
+    'I like to make wheel-thrown pottery.', 'I love watching Survivor.',
+    'I am learning Mandarin.', 'I was born on Friday the 13th.', 'I am a Libra.'
+  ];
 
   // Pick a random fact.
   const fact = facts[Math.floor(Math.random() * facts.length)];
@@ -28,7 +30,7 @@ function addRandomFact() {
 }
 
 function getComments() {
-  document.getElementById('comments-container').innerHTML = "";
+  document.getElementById('comments-container').innerHTML = '';
   fetch('/data').then(response => response.json()).then((tasks) => {
     const taskListElement = document.getElementById('comments-container');
     tasks.forEach((task) => {
