@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="getComments()">
     <div id="content">
       <h1>Jag Jennings's Portfolio</h1>
       <h2>STEP Intern on Google Podcasts</h2>
@@ -35,14 +35,21 @@
           AutoCAD, and SolidWorks.</p>
       
       <p>Click here to get a random fact about me:</p>
-      <button onclick="addRandomFact()">Hello</button>
+      <button onclick="addRandomFact()">Fact</button>
       <div id="fact-container"></div>
 
       <p>Click <a href="ceramics.html">here</a> to see some of my ceramic creations!</p>
 
-      <p>Click here for a message from the DataServlet:</p>
-      <button onclick="getDataUsingArrowFunctions()">Fetch Data</button>
-      <div id="data-container"></div>
+      <ul id="comments"></ul>
+      
+      <form action="/data" method="POST">
+
+        <p>Add a comment:</p>
+        <textarea name="text-input"></textarea>
+        <br/><br/>
+
+        <input type="submit" />
+      </form>
     </div>
   </body>
 </html>

@@ -14,7 +14,11 @@
 
 package com.google.sps.servlets;
 
+import java.util.ArrayList;
+import com.google.sps.servlets.DataServlet;
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.Date;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,10 +27,37 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  
+  private static final Gson GSON = new Gson();
+
+  private ArrayList<String> comments = new ArrayList<String>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("Hello Jag!");
+
+    response.setContentType("application/json");
+    String json = GSON.toJson(comments);
+    response.getWriter().println(json);
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the input from the form.
+    String comment = getParameter(request, "text-input", "");
+
+    response.setContentType("text/html");
+    response.getWriter().println(comment);
+
+    // Redirect back to the HTML page.
+    response.sendRedirect("/index.html");
+  }
+
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
   }
 }
+

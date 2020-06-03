@@ -27,8 +27,14 @@ function addRandomFact() {
   factContainer.innerText = fact;
 }
 
-function getDataUsingArrowFunctions() {
-  fetch('/data').then(response => response.text()).then((data) => {
+function getComments() {
+  fetch('/data').then(response => response.json()).then((comment) => {
+    document.getElementById('comment').innerText = comment;
+  });
+}
+
+function getData() {
+  fetch('/data').then(response => response.json()).then((data) => {
     document.getElementById('data-container').innerText = data;
   });
 }
