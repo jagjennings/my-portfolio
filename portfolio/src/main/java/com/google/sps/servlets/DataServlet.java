@@ -36,6 +36,9 @@ import javax.servlet.http.HttpServletResponse;
 public class DataServlet extends HttpServlet {
   
   private static final Gson GSON = new Gson();
+  private static final String NAME_KEY = "name";
+  private static final String COMMENT_KEY = "comment";
+  private static final String TIMESTAMP_KEY = "timestamp";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -67,9 +70,9 @@ public class DataServlet extends HttpServlet {
     long timestamp = System.currentTimeMillis();
 
     Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("name", name);
-    commentEntity.setProperty("comment", comment);
-    commentEntity.setProperty("timestamp", timestamp);
+    commentEntity.setProperty(NAME_KEY, name);
+    commentEntity.setProperty(COMMENT_KEY, comment);
+    commentEntity.setProperty(TIMESTAMP_KEY, timestamp);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
