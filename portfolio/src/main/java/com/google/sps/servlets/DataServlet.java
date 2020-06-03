@@ -14,18 +14,17 @@
 
 package com.google.sps.servlets;
 
-import com.google.sps.data.Comment;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import com.google.gson.Gson;
+import com.google.sps.data.Comment;
+import java.io.IOException;
+import java.lang.Integer;
+import java.util.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +33,6 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  
   private static final Gson GSON = new Gson();
   private static final String NAME_KEY = "name";
   private static final String COMMENT_KEY = "comment";
@@ -47,14 +45,17 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
+    int limit = Integer.parseInt(request.getParameter("limit"));
     ArrayList<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      String name = (String) entity.getProperty("name");
-      String comment_body = (String) entity.getProperty("comment");
-      long timestamp = (long) entity.getProperty("timestamp");
+      String name = (String) entity.getProperty(NAME_KEY);
+      String comment_body = (String) entity.getProperty(COMMENT_KEY);
+      long timestamp = (long) entity.getProperty(TIMESTAMP_KEY);
 
-      Comment comment = new Comment(name, comment_body, timestamp);
-      comments.add(comment);
+      comments.add(new Comment(name, comment_body, timestamp));
+
+      if (comments.size() == limit)
+        break;
     }
 
     response.setContentType("application/json");
