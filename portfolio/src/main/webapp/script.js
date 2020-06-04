@@ -30,15 +30,6 @@ function addRandomFact() {
 }
 
 function getComments() {
-  // document.getElementById('comments-container').innerHTML = '';
-  // fetch('/data').then(response => response.json()).then((comments) => {
-  //   const commentListElement = document.getElementById('comments-container');
-  //   comments.forEach((comment) => {
-  //     commentListElement.appendChild(
-  //         createListElement(comment.name + ': ' + comment.comment));
-  //   })
-  // });
-
   document.getElementById('comments-container').innerHTML = '';
   var num = document.getElementById('num');
   num = num.options[num.selectedIndex].value;

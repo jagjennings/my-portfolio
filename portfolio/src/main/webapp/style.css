@@ -5,38 +5,36 @@
   font-size: 20px;
   font-weight: 200;
 }
- 
+
 #images img {
   text-align: center;
   max-height: 340px;
   max-width: 20%;
   padding: 10px;
 }
- 
+
 #images {
   text-align: center;
   width: 100%;
 }
- 
+
 .image-thumbnails {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
- 
+
 .image-thumbnails img {
   margin: 10px;
   max-height: 640px;
   max-width: 654px;
 }
- 
+
 #comment-section {
-  text-align:center;
+  text-align: center;
 }
- 
+
 #comments-container {
   display: inline-block;
   text-align: left;
 }
- 
-
