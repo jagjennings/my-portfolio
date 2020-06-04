@@ -47,15 +47,10 @@ public class DeleteDataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    //ArrayList<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       Key commentEntityKey = entity.getKey();
       datastore.delete(commentEntityKey);
     }
-
-    // response.setContentType("application/json");
-    // String json = GSON.toJson(comments);
-    // response.getWriter().println(json);
 
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");
