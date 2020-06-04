@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
   </head>
   <body onload="getComments()">
@@ -12,48 +12,51 @@
       <h2>STEP Intern on Google Podcasts</h2>
 
       <div id="images">
-        <img src="/images/jag.jpg"/>
-        <img src="/images/goat.jpg"/>
-      </div><br>
+        <img src="/images/jag.jpg" alt="A Picture of Me" />
+        <img src="/images/goat.jpg" alt="Two Goats" />
+      </div>
+      <br />
 
       <p>My name is Jag Jennings and I will be going into my Junior Year at XULA this Fall.</p>
 
-      <p>I am currently a Sophomore at Xavier University in New Orleans, pursuing a degree in Computer Science.
-          I have participated in several Computer Science oriented summer programs, including Google’s Engineering Practicum Internship,
-          Google's Computer Science Summer Institute and the University of California, Irvine’s ASPIRE program. I have also taken various
-          online courses in both Python and Java, including AP Computer Science A through Edhesive.com and Introduction to iOS Mobile App
-          Development through Edmentum.com.</p>
+      <p>
+        I am currently a Sophomore at Xavier University in New Orleans, pursuing a degree in Computer Science. I have
+        participated in several Computer Science oriented summer programs, including Google’s Engineering Practicum
+        Internship, Google's Computer Science Summer Institute and the University of California, Irvine’s ASPIRE
+        program. I have also taken various online courses in both Python and Java, including AP Computer Science A
+        through Edhesive.com and Introduction to iOS Mobile App Development through Edmentum.com.
+      </p>
 
-      <p>I graduated Summa Cum Laude from Mater Dei High School in California with a 4.4 GPA. Over the course of my high school career,
-          I took 10 Advanced Placement Classes with a 100% passing rate, for which I have been awarded the title of AP Scholar with Honor by
-          College Board. I have also spent the last four years studying both the language and culture of China, taking Mandarin Chinese classes
-          at both Mater Dei and Saddleback College. I have continued to enhance my Mandarin proficiency in college, and I currently act as a
-          Student Ambassador for the US-China Strong Foundation, encouraging Americans throughout the country to study Chinese.</p>
-      
-      <p>In addition to my Computer Science and Mandarin Chinese experience, I possess proficient math skills and take pleasure in problem-solving
-          and critical thinking. I also have a significant understanding of Civil Engineering through my studies of 3-D design softwares Sketchup,
-          AutoCAD, and SolidWorks.</p>
-      
+      <p>
+        I graduated Summa Cum Laude from Mater Dei High School in California with a 4.4 GPA. Over the course of my high
+        school career, I took 10 Advanced Placement Classes with a 100% passing rate, for which I have been awarded the
+        title of AP Scholar with Honor by College Board. I have also spent the last four years studying both the
+        language and culture of China, taking Mandarin Chinese classes at both Mater Dei and Saddleback College. I have
+        continued to enhance my Mandarin proficiency in college, and I currently act as a Student Ambassador for the
+        US-China Strong Foundation, encouraging Americans throughout the country to study Chinese.
+      </p>
+
+      <p>
+        In addition to my Computer Science and Mandarin Chinese experience, I possess proficient math skills and take
+        pleasure in problem-solving and critical thinking. I also have a significant understanding of Civil Engineering
+        through my studies of 3-D design softwares Sketchup, AutoCAD, and SolidWorks.
+      </p>
+
       <p>Click here to get a random fact about me:</p>
-      <button onclick="addRandomFact()">Fact</button>
+      <button type="button" onclick="addRandomFact()">Fact</button>
       <div id="fact-container"></div>
 
       <p>Click <a href="ceramics.html">here</a> to see some of my ceramic creations!</p>
 
-      <p>Click here for a message from the DataServlet:</p>
-      <button onclick="getData()">Fetch Data</button>
-      <div id="data-container"></div>
-
       <h3>Comments</h3>
-      <div id="comments-container"></div>
-      
-      <form action="/data" method="POST">
+      <ul id="comments-container"></ul>
 
+      <form action="/data" method="POST">
         <p>Add a comment:</p>
         <textarea name="text-input"></textarea>
-        <br/><br/>
+        <br /><br />
 
-        <input type="submit" onclick="getComments()"/>
+        <button type="submit" onclick="getComments()">Submit</button>
       </form>
     </div>
   </body>
