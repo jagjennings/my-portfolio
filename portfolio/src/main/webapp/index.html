@@ -77,7 +77,7 @@
 
         <ul id="comments-container"></ul>
 
-        <form action="/data" method="POST">
+        <form action="/data" method="post">
           <p>Name:</p>
           <textarea name="name-input"></textarea>
 
@@ -86,6 +86,10 @@
           <br /><br />
 
           <button type="submit">Post Comment</button>
+        </form>
+
+        <form action="/delete-data" method="post">
+          <button type ="submit">Delete All Comments</button>
         </form>
       </div>
     </div>

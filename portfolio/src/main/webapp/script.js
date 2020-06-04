@@ -18,7 +18,8 @@
 function addRandomFact() {
   const facts = [
     'I like to make wheel-thrown pottery.', 'I love watching Survivor.',
-    'I am learning Mandarin.', 'I was born on Friday the 13th.', 'I am a Libra.'
+    'I am learning Mandarin.', 'I was born on Friday the 13th.',
+    'I am a Libra.',
   ];
 
   // Pick a random fact.
@@ -29,19 +30,30 @@ function addRandomFact() {
   factContainer.innerText = fact;
 }
 
+/**
+ * Fetches comments and displays them to the page.
+ */
 function getComments() {
   document.getElementById('comments-container').innerHTML = '';
-  var num = document.getElementById('num');
+  let num = document.getElementById('num');
   num = num.options[num.selectedIndex].value;
-  var url = '/data?limit=' + num;
+  const url = '/data?limit=' + num;
 
-  fetch(url).then(response => response.json()).then((comments) => {
+  fetch(url).then((response) => response.json()).then((comments) => {
     const commentsListElement = document.getElementById('comments-container');
     comments.forEach((comment) => {
       commentsListElement.appendChild(
           createListElement(comment.name, comment.comment));
-    })
+    });
   });
+}
+
+/**
+ * Deletes all comments from the page.
+ */
+function deleteComments() {
+  const request = new Request('/delete-data', {method: 'POST'});
+  fetch(request).then((result) => getCommentData());
 }
 
 function createListElement(name, comment) {
