@@ -45,7 +45,7 @@ function getComments() {
     const commentsListElement = document.getElementById('comments-container');
     comments.forEach((comment) => {
       commentsListElement.appendChild(
-          createListElement(comment.name, comment.comment));
+          createListElement(comment.name, comment.comment, comment.postTime));
     });
   });
 }
@@ -58,8 +58,8 @@ function deleteComments() {
   fetch(request).then((result) => getComments());
 }
 
-function createListElement(name, comment) {
+function createListElement(name, comment, postTime) {
   const liElement = document.createElement('p');
-  liElement.innerText = name + ': ' + comment;
+  liElement.innerText = name + ': ' + comment + ' on ' + postTime;
   return liElement;
 }

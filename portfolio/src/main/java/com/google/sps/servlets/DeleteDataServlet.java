@@ -26,7 +26,7 @@ import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
 import java.lang.Integer;
-import java.util.*;
+import java.util.ArrayList;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,21 +36,22 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/delete-data")
 public class DeleteDataServlet extends HttpServlet {
   private static final Gson GSON = new Gson();
-  private static final String NAME_KEY = "name";
-  private static final String COMMENT_KEY = "comment";
-  private static final String TIMESTAMP_KEY = "timestamp";
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query(COMMENT_KEY).addSort(TIMESTAMP_KEY, SortDirection.DESCENDING);
+    Query query =
+        new Query(Comment.COMMENT_KEY).addSort(Comment.TIMESTAMP_KEY, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
+    ArrayList<Key> commentEntityKeys = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       Key commentEntityKey = entity.getKey();
-      datastore.delete(commentEntityKey);
+      commentEntityKeys.add(commentEntityKey);
     }
+
+    datastore.delete(commentEntityKeys);
 
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");
