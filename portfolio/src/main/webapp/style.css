@@ -1,18 +1,20 @@
 #content {
   margin-left: auto;
   margin-right: auto;
-  width: 650px;
+  width: 90%;
+  font-size: 20px;
+  font-weight: 200;
 }
 
-img {
-  float: left;
-  max-height: 350px;
-  max-width: 45%;
-  padding: 5px;
+#images img {
+  text-align: center;
+  max-height: 340px;
+  max-width: 15%;
+  padding: 10px;
 }
 
 #images {
-  float: left;
+  text-align: center;
   width: 100%;
 }
 
@@ -28,6 +30,11 @@ img {
   max-width: 654px;
 }
 
-#data-container {
-  margin-top: 20px;
+#comment-section {
+  text-align: center;
+}
+
+#comments-container {
+  display: inline-block;
+  text-align: left;
 }

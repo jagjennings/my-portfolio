@@ -17,8 +17,11 @@
  */
 function addRandomFact() {
   const facts = [
-    'I like to make wheel-thrown pottery.', 'I love watching Survivor.',
-    'I am learning Mandarin.', 'I was born on Friday the 13th.', 'I am a Libra.'
+    'I like to make wheel-thrown pottery.',
+    'I love watching Survivor.',
+    'I am learning Mandarin.',
+    'I was born on Friday the 13th.',
+    'I am a Libra.',
   ];
 
   // Pick a random fact.
@@ -29,18 +32,34 @@ function addRandomFact() {
   factContainer.innerText = fact;
 }
 
+/**
+ * Fetches comments and displays them to the page.
+ */
 function getComments() {
   document.getElementById('comments-container').innerHTML = '';
-  fetch('/data').then(response => response.json()).then((tasks) => {
-    const taskListElement = document.getElementById('comments-container');
-    tasks.forEach((task) => {
-      taskListElement.appendChild(createListElement(task.comment));
-    })
+  let num = document.getElementById('num');
+  num = num.options[num.selectedIndex].value;
+  const url = '/data?limit=' + num;
+
+  fetch(url).then((response) => response.json()).then((comments) => {
+    const commentsListElement = document.getElementById('comments-container');
+    comments.forEach((comment) => {
+      commentsListElement.appendChild(
+          createListElement(comment.name, comment.comment, comment.postTime));
+    });
   });
 }
 
-function createListElement(comment) {
+/**
+ * Deletes all comments from the page.
+ */
+function deleteComments() {
+  const request = new Request('/delete-data', {method: 'POST'});
+  fetch(request).then((result) => getComments());
+}
+
+function createListElement(name, comment, postTime) {
   const liElement = document.createElement('p');
-  liElement.innerText = comment;
+  liElement.innerText = name + ': ' + comment + ' on ' + postTime;
   return liElement;
 }

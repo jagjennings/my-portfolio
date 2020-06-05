@@ -23,9 +23,10 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
+import java.lang.Integer;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Date;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,23 +36,27 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   private static final Gson GSON = new Gson();
-  private static final String COMMENT_KEY = "comment";
-  private static final String TIMESTAMP_KEY = "timestamp";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query(COMMENT_KEY).addSort(TIMESTAMP_KEY, SortDirection.DESCENDING);
+    Query query =
+        new Query(Comment.COMMENT_KEY).addSort(Comment.TIMESTAMP_KEY, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
+    int limit = Integer.parseInt(request.getParameter("limit"));
     ArrayList<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      String commentBody = (String) entity.getProperty(COMMENT_KEY);
-      long timestamp = (long) entity.getProperty(TIMESTAMP_KEY);
+      String name = (String) entity.getProperty(Comment.NAME_KEY);
+      String commentBody = (String) entity.getProperty(Comment.COMMENT_KEY);
+      long timestamp = (long) entity.getProperty(Comment.TIMESTAMP_KEY);
+      String postTime = (String) entity.getProperty(Comment.POST_TIME_KEY);
 
-      Comment comment = new Comment(commentBody, timestamp);
-      comments.add(comment);
+      comments.add(new Comment(name, commentBody, timestamp, postTime));
+
+      if (comments.size() == limit)
+        break;
     }
 
     response.setContentType("application/json");
@@ -62,12 +67,19 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
+    String name = getParameter(request, "name-input", "");
     String comment = getParameter(request, "text-input", "");
     long timestamp = System.currentTimeMillis();
 
-    Entity commentEntity = new Entity(COMMENT_KEY);
-    commentEntity.setProperty(COMMENT_KEY, comment);
-    commentEntity.setProperty(TIMESTAMP_KEY, timestamp);
+    Date date = new Date(timestamp);
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy  HH:mm:ss");
+    String postTime = dateFormat.format(date);
+
+    Entity commentEntity = new Entity(Comment.COMMENT_KEY);
+    commentEntity.setProperty(Comment.NAME_KEY, name);
+    commentEntity.setProperty(Comment.COMMENT_KEY, comment);
+    commentEntity.setProperty(Comment.TIMESTAMP_KEY, timestamp);
+    commentEntity.setProperty(Comment.POST_TIME_KEY, postTime);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);

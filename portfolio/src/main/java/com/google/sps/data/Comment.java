@@ -14,13 +14,21 @@
 
 package com.google.sps.data;
 
-/** An item on a todo list. */
+/** An item on a comment list. */
 public final class Comment {
+  private final String name;
   private final String comment;
   private final long timestamp;
+  private final String postTime;
+  public static final String NAME_KEY = "name";
+  public static final String COMMENT_KEY = "comment";
+  public static final String TIMESTAMP_KEY = "timestamp";
+  public static final String POST_TIME_KEY = "postTime";
 
-  public Comment(String comment, long timestamp) {
+  public Comment(String name, String comment, long timestamp, String postTime) {
+    this.name = name;
     this.comment = comment;
     this.timestamp = timestamp;
+    this.postTime = postTime;
   }
 }
