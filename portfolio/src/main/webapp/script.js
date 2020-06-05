@@ -17,8 +17,10 @@
  */
 function addRandomFact() {
   const facts = [
-    'I like to make wheel-thrown pottery.', 'I love watching Survivor.',
-    'I am learning Mandarin.', 'I was born on Friday the 13th.',
+    'I like to make wheel-thrown pottery.',
+    'I love watching Survivor.',
+    'I am learning Mandarin.',
+    'I was born on Friday the 13th.',
     'I am a Libra.',
   ];
 
@@ -53,7 +55,7 @@ function getComments() {
  */
 function deleteComments() {
   const request = new Request('/delete-data', {method: 'POST'});
-  fetch(request).then((result) => getCommentData());
+  fetch(request).then((result) => getComments());
 }
 
 function createListElement(name, comment) {
