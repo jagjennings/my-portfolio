@@ -31,6 +31,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -60,16 +62,17 @@ public class DataServlet extends HttpServlet {
     }
 
     response.setContentType("application/json");
-    String json = GSON.toJson(comments);
-    response.getWriter().println(json);
+    String commentsJson = GSON.toJson(comments);
+    response.getWriter().println(commentsJson);
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
-    String name = getParameter(request, "name-input", "");
     String comment = getParameter(request, "text-input", "");
     long timestamp = System.currentTimeMillis();
+    UserService userService = UserServiceFactory.getUserService();
+    String name = userService.getCurrentUser().getEmail();
 
     Date date = new Date(timestamp);
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy  HH:mm:ss");

@@ -63,3 +63,9 @@ function createListElement(name, comment, postTime) {
   liElement.innerText = name + ': ' + comment + ' on ' + postTime;
   return liElement;
 }
+
+function getLogin() {
+  fetch("/login-status").then((response) => response.json()).then((login) => {
+    document.getElementById('login-container').innerHTML = login;
+  });
+}

@@ -6,8 +6,12 @@
     <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
   </head>
-  <body onload="getComments()">
+  <body onload="getComments(); getLogin();">
     <div id="content">
+      <div id="login-container">
+        <p>Login Section</p>
+      </div>
+      
       <h1>Jag Jennings's Portfolio</h1>
       <h2>STEP Intern on Google Podcasts</h2>
 
@@ -78,9 +82,6 @@
         <ul id="comments-container"></ul>
 
         <form action="/data" method="post">
-          <p>Name:</p>
-          <textarea name="name-input"></textarea>
-
           <p>Add a comment:</p>
           <textarea name="text-input"></textarea>
           <br /><br />
