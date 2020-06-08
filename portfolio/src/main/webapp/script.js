@@ -73,4 +73,3 @@ function createListElement(name, comment, postTime) {
   liElement.innerText = name + ': ' + comment + ' on ' + postTime;
   return liElement;
 }
-
