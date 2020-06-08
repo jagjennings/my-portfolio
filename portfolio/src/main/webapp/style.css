@@ -35,9 +35,9 @@
 }
 
 #comments-container {
+  width: 50%;
   display: inline-block;
   text-align: left;
-  height: 200px;
-  overflow: hidden;
-  overflow-y: scroll;
+  height: 150px;
+  overflow: auto;
 }

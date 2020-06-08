@@ -16,8 +16,9 @@ package com.google.sps.servlets;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-import java.io.IOException;
 import com.google.gson.Gson;
+import com.google.sps.data.LoginStatus;
+import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,20 +38,22 @@ public class LoginDataServlet extends HttpServlet {
       String urlToRedirectToAfterUserLogsOut = "/index.html";
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
-      String loginStatus = "<p>Logged in as " + userEmail + "</p>" + "<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>";
+      String loginMessage = "<p>Logged in as " + userEmail + "</p>"
+          + "<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>";
+      LoginStatus loginStatus = new LoginStatus(true, loginMessage);
       response.setContentType("application/json");
-      String loginStatusJson = GSON.toJson(loginStatus);
 
-      response.getWriter().println(loginStatusJson);
+      response.getWriter().println(GSON.toJson(loginStatus));
     } else {
       String urlToRedirectToAfterUserLogsIn = "/index.html";
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
 
-      String loginStatus = "<p>You are not logged in.</p>" + "<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>";
+      String loginMessage = "<p>You are not logged in.</p>"
+          + "<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>";
+      LoginStatus loginStatus = new LoginStatus(false, loginMessage);
       response.setContentType("application/json");
-      String loginStatusJson = GSON.toJson(loginStatus);
 
-      response.getWriter().println(loginStatusJson);
+      response.getWriter().println(GSON.toJson(loginStatus));
     }
   }
 }

@@ -20,6 +20,8 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
@@ -31,8 +33,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -46,6 +46,7 @@ public class DataServlet extends HttpServlet {
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
+    UserService userService = UserServiceFactory.getUserService();
 
     int limit = Integer.parseInt(request.getParameter("limit"));
     ArrayList<Comment> comments = new ArrayList<>();
@@ -62,8 +63,15 @@ public class DataServlet extends HttpServlet {
     }
 
     response.setContentType("application/json");
-    String commentsJson = GSON.toJson(comments);
-    response.getWriter().println(commentsJson);
+    if (userService.isUserLoggedIn()) {
+      response.getWriter().println(GSON.toJson(comments));
+    } else {
+      String urlToRedirectToAfterUserLogsIn = "/index.html";
+      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      String loginMessage = "<p>You must be logged in to view comments.</p>"
+          + "<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>";
+      response.getWriter().println(GSON.toJson(loginMessage));
+    }
   }
 
   @Override

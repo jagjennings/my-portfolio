@@ -41,12 +41,22 @@ function getComments() {
   num = num.options[num.selectedIndex].value;
   const url = '/data?limit=' + num;
 
-  fetch(url).then((response) => response.json()).then((comments) => {
-    const commentsListElement = document.getElementById('comments-container');
-    comments.forEach((comment) => {
-      commentsListElement.appendChild(
-          createListElement(comment.name, comment.comment, comment.postTime));
-    });
+  fetch('/login-status').then((response) => response.json()).then((user) => {
+    document.getElementById('login-container').innerHTML = user.message;
+    if (!user.isLoggedIn) {
+      fetch(url).then((response) => response.json()).then((loginMessage) => {
+        document.getElementById('comments-container').innerHTML = loginMessage;
+      });
+    } else {
+      fetch(url).then((response) => response.json()).then((comments) => {
+        const commentsListElement =
+            document.getElementById('comments-container');
+        comments.forEach((comment) => {
+          commentsListElement.appendChild(createListElement(
+              comment.name, comment.comment, comment.postTime));
+        });
+      });
+    }
   });
 }
 
@@ -62,10 +72,4 @@ function createListElement(name, comment, postTime) {
   const liElement = document.createElement('p');
   liElement.innerText = name + ': ' + comment + ' on ' + postTime;
   return liElement;
-}
-
-function getLogin() {
-  fetch("/login-status").then((response) => response.json()).then((login) => {
-    document.getElementById('login-container').innerHTML = login;
-  });
 }
