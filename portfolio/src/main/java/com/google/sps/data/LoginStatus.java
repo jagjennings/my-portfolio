@@ -16,10 +16,10 @@ package com.google.sps.data;
 
 /** An item on a comment list. */
 public final class LoginStatus {
-  public final Boolean isLoggedIn;
+  public final boolean isLoggedIn;
   public final String message;
 
-  public LoginStatus(Boolean isLoggedIn, String message) {
+  public LoginStatus(boolean isLoggedIn, String message) {
     this.isLoggedIn = isLoggedIn;
     this.message = message;
   }

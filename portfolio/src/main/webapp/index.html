@@ -79,17 +79,23 @@
 
         <ul id="comments-container"></ul>
 
-        <form action="/data" method="post">
-          <p>Add a comment:</p>
-          <textarea name="text-input"></textarea>
-          <br /><br />
+        <div id="login-message-container"></div>
+        <div id="login-link"></div>
+        <div id="post-button">
+          <form action="/data" method="post">
+            <p>Add a comment:</p>
+            <textarea name="text-input"></textarea>
+            <br /><br />
 
-          <button type="submit">Post Comment</button>
-        </form>
+            <button type="submit">Post Comment</button>
+          </form>
+        </div>
 
-        <form action="/delete-data" method="post">
-          <button type="submit">Delete All Comments</button>
-        </form>
+        <div id="delete-button">
+          <form action="/delete-data" method="post">
+            <button type="submit">Delete All Comments</button>
+          </form>
+        </div>
       </div>
     </div>
   </body>
