@@ -64,14 +64,6 @@ public class DataServlet extends HttpServlet {
 
     response.setContentType("application/json");
     response.getWriter().println(GSON.toJson(comments));
-
-    // if (!userService.isUserLoggedIn()) {
-    //   String urlToRedirectToAfterUserLogsIn = "/index.html";
-    //   String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
-    //   String loginMessage = "<p>You must be logged in to view comments.</p>"
-    //       + "<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>";
-    //   response.getWriter().println(GSON.toJson(loginMessage));
-    // }
   }
 
   @Override
