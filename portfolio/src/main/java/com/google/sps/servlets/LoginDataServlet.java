@@ -41,7 +41,6 @@ public class LoginDataServlet extends HttpServlet {
       String loginMessage = "<p>Logged in as " + userEmail + "</p>"
           + "<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>";
       LoginStatus loginStatus = new LoginStatus(true, loginMessage);
-      // response.setContentType("application/json");
 
       response.getWriter().println(GSON.toJson(loginStatus));
     } else {
@@ -51,7 +50,6 @@ public class LoginDataServlet extends HttpServlet {
       String loginMessage = "<p>You are not logged in.</p>"
           + "<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>";
       LoginStatus loginStatus = new LoginStatus(false, loginMessage);
-      // response.setContentType("application/json");
 
       response.getWriter().println(GSON.toJson(loginStatus));
     }
