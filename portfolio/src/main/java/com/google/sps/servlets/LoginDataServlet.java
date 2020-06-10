@@ -30,7 +30,7 @@ public class LoginDataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html");
+    response.setContentType("application/json");
 
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
@@ -41,7 +41,7 @@ public class LoginDataServlet extends HttpServlet {
       String loginMessage = "<p>Logged in as " + userEmail + "</p>"
           + "<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>";
       LoginStatus loginStatus = new LoginStatus(true, loginMessage);
-      response.setContentType("application/json");
+      // response.setContentType("application/json");
 
       response.getWriter().println(GSON.toJson(loginStatus));
     } else {
@@ -51,7 +51,7 @@ public class LoginDataServlet extends HttpServlet {
       String loginMessage = "<p>You are not logged in.</p>"
           + "<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>";
       LoginStatus loginStatus = new LoginStatus(false, loginMessage);
-      response.setContentType("application/json");
+      // response.setContentType("application/json");
 
       response.getWriter().println(GSON.toJson(loginStatus));
     }
