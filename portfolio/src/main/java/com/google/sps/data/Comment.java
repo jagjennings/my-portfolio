@@ -20,15 +20,18 @@ public final class Comment {
   private final String comment;
   private final long timestamp;
   private final String postTime;
+  private final String sentimentScore;
   public static final String NAME_KEY = "name";
   public static final String COMMENT_KEY = "comment";
   public static final String TIMESTAMP_KEY = "timestamp";
   public static final String POST_TIME_KEY = "postTime";
+  public static final String SENTIMENT_SCORE_KEY = "sentimentScore";
 
-  public Comment(String name, String comment, long timestamp, String postTime) {
+  public Comment(String name, String comment, long timestamp, String postTime, String sentimentScore) {
     this.name = name;
     this.comment = comment;
     this.timestamp = timestamp;
     this.postTime = postTime;
+    this.sentimentScore = sentimentScore;
   }
 }

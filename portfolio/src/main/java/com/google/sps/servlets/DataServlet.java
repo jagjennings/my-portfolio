@@ -33,6 +33,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Sentiment;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -48,6 +51,7 @@ public class DataServlet extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
     UserService userService = UserServiceFactory.getUserService();
 
+    // Add entites from datastore to comments arraylist.
     int limit = Integer.parseInt(request.getParameter("limit"));
     ArrayList<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
@@ -55,8 +59,9 @@ public class DataServlet extends HttpServlet {
       String commentBody = (String) entity.getProperty(Comment.COMMENT_KEY);
       long timestamp = (long) entity.getProperty(Comment.TIMESTAMP_KEY);
       String postTime = (String) entity.getProperty(Comment.POST_TIME_KEY);
+      String sentimentScore = (String) entity.getProperty(Comment.SENTIMENT_SCORE_KEY);
 
-      comments.add(new Comment(name, commentBody, timestamp, postTime));
+      comments.add(new Comment(name, commentBody, timestamp, postTime, sentimentScore));
 
       if (comments.size() == limit)
         break;
@@ -68,7 +73,7 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get the input from the form.
+    // Get the input from the comment form.
     String comment = getParameter(request, "text-input", "");
     long timestamp = System.currentTimeMillis();
     UserService userService = UserServiceFactory.getUserService();
@@ -78,12 +83,22 @@ public class DataServlet extends HttpServlet {
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy  HH:mm:ss");
     String postTime = dateFormat.format(date);
 
+    Document doc =
+    Document.newBuilder().setContent(comment).setType(Document.Type.PLAIN_TEXT).build();
+    LanguageServiceClient languageService = LanguageServiceClient.create();
+    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
+    String sentimentScore = String.valueOf(sentiment.getScore());
+    languageService.close();
+
+    // Create entity with the comment from the input form.
     Entity commentEntity = new Entity(Comment.COMMENT_KEY);
     commentEntity.setProperty(Comment.NAME_KEY, name);
     commentEntity.setProperty(Comment.COMMENT_KEY, comment);
     commentEntity.setProperty(Comment.TIMESTAMP_KEY, timestamp);
     commentEntity.setProperty(Comment.POST_TIME_KEY, postTime);
+    commentEntity.setProperty(Comment.SENTIMENT_SCORE_KEY, sentimentScore);
 
+    // Add the entity to the datastore.
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
