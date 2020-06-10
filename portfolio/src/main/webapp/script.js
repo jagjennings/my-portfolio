@@ -57,6 +57,9 @@ function getComments() {
       document.getElementById('login-link').innerHTML = user.message;
       document.getElementById('post-button').style.display = 'none';
       document.getElementById('delete-button').style.display = 'none';
+    } else {
+      document.getElementById('post-button').style.display = 'block';
+      document.getElementById('delete-button').style.display = 'block';
     }
   });
 }
