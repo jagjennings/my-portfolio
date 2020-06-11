@@ -48,6 +48,20 @@ function getComments() {
           createListElement(comment.name, comment.comment, comment.postTime));
     });
   });
+
+  fetch('/login-status').then((response) => response.json()).then((user) => {
+    document.getElementById('login-container').innerHTML = user.message;
+    if (!user.isLoggedIn) {
+      document.getElementById('login-message-container').innerText =
+          'You must be logged in to post comments.';
+      document.getElementById('login-link').innerHTML = user.message;
+      document.getElementById('post-button').style.display = 'none';
+      document.getElementById('delete-button').style.display = 'none';
+    } else {
+      document.getElementById('post-button').style.display = 'block';
+      document.getElementById('delete-button').style.display = 'block';
+    }
+  });
 }
 
 /**
@@ -58,6 +72,9 @@ function deleteComments() {
   fetch(request).then((result) => getComments());
 }
 
+/**
+ * Creates elements to populate comment list.
+ */
 function createListElement(name, comment, postTime) {
   const liElement = document.createElement('p');
   liElement.innerText = name + ': ' + comment + ' on ' + postTime;

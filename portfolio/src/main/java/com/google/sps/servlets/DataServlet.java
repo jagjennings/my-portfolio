@@ -20,6 +20,8 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
@@ -44,6 +46,7 @@ public class DataServlet extends HttpServlet {
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
+    UserService userService = UserServiceFactory.getUserService();
 
     int limit = Integer.parseInt(request.getParameter("limit"));
     ArrayList<Comment> comments = new ArrayList<>();
@@ -60,16 +63,16 @@ public class DataServlet extends HttpServlet {
     }
 
     response.setContentType("application/json");
-    String json = GSON.toJson(comments);
-    response.getWriter().println(json);
+    response.getWriter().println(GSON.toJson(comments));
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
-    String name = getParameter(request, "name-input", "");
     String comment = getParameter(request, "text-input", "");
     long timestamp = System.currentTimeMillis();
+    UserService userService = UserServiceFactory.getUserService();
+    String name = userService.getCurrentUser().getEmail();
 
     Date date = new Date(timestamp);
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy  HH:mm:ss");

@@ -8,6 +8,8 @@
   </head>
   <body onload="getComments()">
     <div id="content">
+      <div id="login-container"></div>
+
       <h1>Jag Jennings's Portfolio</h1>
       <h2>STEP Intern on Google Podcasts</h2>
 
@@ -77,20 +79,23 @@
 
         <ul id="comments-container"></ul>
 
-        <form action="/data" method="post">
-          <p>Name:</p>
-          <textarea name="name-input"></textarea>
+        <div id="login-message-container"></div>
+        <div id="login-link"></div>
+        <div id="post-button" style="display: none;>
+          <form action="/data" method="post">
+            <p>Add a comment:</p>
+            <textarea name="text-input"></textarea>
+            <br /><br />
 
-          <p>Add a comment:</p>
-          <textarea name="text-input"></textarea>
-          <br /><br />
+            <button type="submit">Post Comment</button>
+          </form>
+        </div>
 
-          <button type="submit">Post Comment</button>
-        </form>
-
-        <form action="/delete-data" method="post">
-          <button type="submit">Delete All Comments</button>
-        </form>
+        <div id="delete-button" style="display: none;>
+          <form action="/delete-data" method="post">
+            <button type="submit">Delete All Comments</button>
+          </form>
+        </div>
       </div>
     </div>
   </body>
