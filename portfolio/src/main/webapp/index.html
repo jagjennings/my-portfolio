@@ -2,50 +2,61 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>My Portfolio</title>
+    <title>Jag Jennings's Portfolio</title>
     <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
   </head>
-  <body onload="getComments()">
-    <div id="content">
-      <div id="login-container"></div>
+  <body onload="getComments()" class="container-fluid pt-3">
+    <div id="content" class="container-fluid pt-3">
+      <header>
+        <div class="row">
+          <div class="col">
+            <h1>Jag Jennings's Portfolio</h1>
+            <h2>STEP Intern on Google Podcasts</h2>
+          </div>
+          <div id="login-container" class="col-auto"></div>
+        </div>
+      </header>
+      <br />
 
-      <h1>Jag Jennings's Portfolio</h1>
-      <h2>STEP Intern on Google Podcasts</h2>
-
-      <div id="images">
-        <img src="/images/pool.jpg" alt="Me playing pool" />
-        <img src="/images/throwing.jpg" alt="Me Throwing on the Wheel" />
-        <img src="/images/jag.jpg" alt="A Picture of Me" />
-        <img src="/images/goat.jpg" alt="Two Goats" />
-        <img src="/images/voice.jpg" alt="Me on the Voice" />
+      <div id="images" class="row justify-content-center">
+        <div class="col align-self-start"><img src="/images/pool.jpg" alt="Me playing pool" /></div>
+        <div class="col align-self-center"><img src="/images/throwing.jpg" alt="Me Throwing on the Wheel" /></div>
+        <div class="col align-self-start"><img src="/images/jag.jpg" alt="A Picture of Me" /></div>
+        <div class="col align-self-start"><img src="/images/goat.jpg" alt="Two Goats" /></div>
+        <div class="col align-self-start"><img src="/images/voice.jpg" alt="Me on the Voice" /></div>
       </div>
-      <br /><br />
+      <br />
 
-      <p>My name is Jag Jennings and I will be going into my Junior Year at XULA this Fall.</p>
+      <div>
+        <p>
+          I am a rising Junior at Xavier University in New Orleans, pursuing a degree in Computer Science. I have
+          participated in several Computer Science oriented summer programs, including Google’s Engineering Practicum
+          Internship, Google's Computer Science Summer Institute and the University of California, Irvine’s ASPIRE
+          program. I have also taken various online courses in both Python and Java, including AP Computer Science A
+          through Edhesive.com and Introduction to iOS Mobile App Development through Edmentum.com.
+        </p>
 
-      <p>
-        I am currently a Sophomore at Xavier University in New Orleans, pursuing a degree in Computer Science. I have
-        participated in several Computer Science oriented summer programs, including Google’s Engineering Practicum
-        Internship, Google's Computer Science Summer Institute and the University of California, Irvine’s ASPIRE
-        program. I have also taken various online courses in both Python and Java, including AP Computer Science A
-        through Edhesive.com and Introduction to iOS Mobile App Development through Edmentum.com.
-      </p>
+        <p>
+          I graduated Summa Cum Laude from Mater Dei High School in California with a 4.4 GPA. Over the course of my high
+          school career, I took 10 Advanced Placement Classes with a 100% passing rate, for which I have been awarded the
+          title of AP Scholar with Honor by College Board. I have also spent the last four years studying both the
+          language and culture of China, taking Mandarin Chinese classes at both Mater Dei and Saddleback College. I have
+          continued to enhance my Mandarin proficiency in college, and I currently act as a Student Ambassador for the
+          US-China Strong Foundation, encouraging Americans throughout the country to study Chinese.
+        </p>
 
-      <p>
-        I graduated Summa Cum Laude from Mater Dei High School in California with a 4.4 GPA. Over the course of my high
-        school career, I took 10 Advanced Placement Classes with a 100% passing rate, for which I have been awarded the
-        title of AP Scholar with Honor by College Board. I have also spent the last four years studying both the
-        language and culture of China, taking Mandarin Chinese classes at both Mater Dei and Saddleback College. I have
-        continued to enhance my Mandarin proficiency in college, and I currently act as a Student Ambassador for the
-        US-China Strong Foundation, encouraging Americans throughout the country to study Chinese.
-      </p>
-
-      <p>
-        In addition to my Computer Science and Mandarin Chinese experience, I possess proficient math skills and take
-        pleasure in problem-solving and critical thinking. I also have a significant understanding of Civil Engineering
-        through my studies of 3-D design softwares Sketchup, AutoCAD, and SolidWorks.
-      </p>
+        <p>
+          In addition to my Computer Science and Mandarin Chinese experience, I possess proficient math skills and take
+          pleasure in problem-solving and critical thinking. I also have a significant understanding of Civil Engineering
+          through my studies of 3-D design softwares Sketchup, AutoCAD, and SolidWorks.
+        </p>
+      </div>
 
       <p>Click here to get a random fact about me:</p>
       <button type="button" onclick="addRandomFact()">Fact</button>

@@ -6,16 +6,19 @@
   font-weight: 200;
 }
 
-#images img {
-  text-align: center;
-  max-height: 340px;
-  max-width: 15%;
-  padding: 10px;
+header {
+  background-color: lightblue;
 }
 
 #images {
+  margin: auto;
+  width: 90%;
+}
+
+#images img {
   text-align: center;
   width: 100%;
+  padding: 10px;
 }
 
 .image-thumbnails {
@@ -42,8 +45,6 @@
   overflow: auto;
 }
 
-#login-container {
-  position: absolute;
-  top: 10px;
-  right: 40px;
-}
+/* #login-container {
+  text-align: right;
+} */
