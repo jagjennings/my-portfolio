@@ -45,7 +45,7 @@ function getComments() {
     const commentsListElement = document.getElementById('comments-container');
     comments.forEach((comment) => {
       commentsListElement.appendChild(
-          createListElement(comment.name, comment.comment, comment.postTime));
+          createListElement(comment.name, comment.comment, comment.postTime, comment.sentimentScore));
     });
   });
 
@@ -75,8 +75,8 @@ function deleteComments() {
 /**
  * Creates elements to populate comment list.
  */
-function createListElement(name, comment, postTime) {
+function createListElement(name, comment, postTime, sentimentScore) {
   const liElement = document.createElement('p');
-  liElement.innerText = name + ': ' + comment + ' on ' + postTime;
+  liElement.innerText = name + ': ' + comment + ' on ' + postTime + ' with a sentiment score of ' + sentimentScore;
   return liElement;
 }
