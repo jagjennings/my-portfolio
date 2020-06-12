@@ -1,3 +1,27 @@
+#comments-container {
+  width: 50%;
+  display: inline-block;
+  text-align: left;
+  height: 250px;
+  overflow: auto;
+  border: solid;
+  padding: 10px;
+}
+
+#comment-section {
+  text-align: center;
+}
+
+#comment-settings {
+  display: inline-block;
+  width: 50%;
+  border: solid;
+}
+
+#comment-settings div {
+  padding: 10px;
+}
+
 #content {
   margin-left: auto;
   margin-right: auto;
@@ -6,16 +30,23 @@
   font-weight: 200;
 }
 
-#images img {
-  text-align: center;
-  max-height: 340px;
-  max-width: 15%;
-  padding: 10px;
+#delete-comment {
+  display: none;
+}
+
+header {
+  background-color: lightblue;
 }
 
 #images {
+  margin: auto;
+  width: 90%;
+}
+
+#images img {
   text-align: center;
   width: 100%;
+  padding: 10px;
 }
 
 .image-thumbnails {
@@ -30,20 +61,6 @@
   max-width: 654px;
 }
 
-#comment-section {
-  text-align: center;
-}
-
-#comments-container {
-  width: 50%;
-  display: inline-block;
-  text-align: left;
-  height: 150px;
-  overflow: auto;
-}
-
-#login-container {
-  position: absolute;
-  top: 10px;
-  right: 40px;
+#post-comment {
+  display: none;
 }
