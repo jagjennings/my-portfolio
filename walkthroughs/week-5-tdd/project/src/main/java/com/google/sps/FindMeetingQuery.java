@@ -14,10 +14,58 @@
 
 package com.google.sps;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
+    ArrayList<TimeRange> timeRanges = new ArrayList<>();
+    ArrayList<TimeRange> badTimeRanges = new ArrayList<>();
+    ArrayList<TimeRange> badTimeRangesByEndTime = new ArrayList<>();
+
+    ArrayList<String> attendees = new ArrayList<String>(request.getAttendees());
+    long duration = request.getDuration();
+
+    if (attendees.isEmpty()) {
+      return Arrays.asList(TimeRange.WHOLE_DAY);
+    } 
+    
+    for (Event event: events) {
+      for (String attendee: attendees) {
+        if (event.getAttendees().contains(attendee)) {
+          badTimeRanges.add(event.getWhen());
+        }
+      }
+    }
+
+    int availableStartTime = TimeRange.START_OF_DAY;
+
+    for (TimeRange timeRange: badTimeRanges) {
+      if (timeRange.end() > availableStartTime) {
+        if (timeRange.start() - availableStartTime >= duration) {
+          timeRanges.add(TimeRange.fromStartEnd(availableStartTime, timeRange.start(), false));
+        }
+
+        availableStartTime = timeRange.end();
+      }
+    }
+
+    if (TimeRange.END_OF_DAY - availableStartTime >= duration) {
+      timeRanges.add(TimeRange.fromStartEnd(availableStartTime, TimeRange.END_OF_DAY, true));
+    }
+
+    for (int i = timeRanges.size() - 1; i >= 0; i--) {
+      for (TimeRange badTimeRange: badTimeRanges) {
+        if (timeRanges.get(i).overlaps(badTimeRange)) {
+          timeRanges.remove(timeRanges.get(i));
+        }
+      }
+    }
+
+    return timeRanges;
   }
 }
