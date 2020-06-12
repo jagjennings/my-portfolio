@@ -22,6 +22,12 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Sentiment;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
@@ -33,9 +39,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.cloud.language.v1.Document;
-import com.google.cloud.language.v1.LanguageServiceClient;
-import com.google.cloud.language.v1.Sentiment;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -50,6 +53,7 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
     UserService userService = UserServiceFactory.getUserService();
+    Translate translate = TranslateOptions.getDefaultInstance().getService();
 
     // Add entites from datastore to comments arraylist.
     int limit = Integer.parseInt(request.getParameter("limit"));
@@ -60,6 +64,13 @@ public class DataServlet extends HttpServlet {
       long timestamp = (long) entity.getProperty(Comment.TIMESTAMP_KEY);
       String postTime = (String) entity.getProperty(Comment.POST_TIME_KEY);
       String sentimentScore = (String) entity.getProperty(Comment.SENTIMENT_SCORE_KEY);
+
+      String language = request.getParameter("language");
+
+      // Do the translation.
+      Translation translation =
+          translate.translate(commentBody, Translate.TranslateOption.targetLanguage(language));
+      commentBody = translation.getTranslatedText();
 
       comments.add(new Comment(name, commentBody, timestamp, postTime, sentimentScore));
 
@@ -84,7 +95,7 @@ public class DataServlet extends HttpServlet {
     String postTime = dateFormat.format(date);
 
     Document doc =
-    Document.newBuilder().setContent(comment).setType(Document.Type.PLAIN_TEXT).build();
+        Document.newBuilder().setContent(comment).setType(Document.Type.PLAIN_TEXT).build();
     LanguageServiceClient languageService = LanguageServiceClient.create();
     Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
     String sentimentScore = String.valueOf(sentiment.getScore());

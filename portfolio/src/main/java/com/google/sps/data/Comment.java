@@ -27,7 +27,8 @@ public final class Comment {
   public static final String POST_TIME_KEY = "postTime";
   public static final String SENTIMENT_SCORE_KEY = "sentimentScore";
 
-  public Comment(String name, String comment, long timestamp, String postTime, String sentimentScore) {
+  public Comment(
+      String name, String comment, long timestamp, String postTime, String sentimentScore) {
     this.name = name;
     this.comment = comment;
     this.timestamp = timestamp;

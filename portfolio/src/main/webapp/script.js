@@ -39,28 +39,20 @@ function getComments() {
   document.getElementById('comments-container').innerHTML = '';
   let num = document.getElementById('num');
   num = num.options[num.selectedIndex].value;
-  const url = '/data?limit=' + num;
+  let language = document.getElementById('language');
+  language = language.options[language.selectedIndex].value;
+  const url = '/data?limit=' + num + '&language=' + language;
+
+  document.getElementById('comments-container').innerHTML = "Loading...";
 
   fetch(url).then((response) => response.json()).then((comments) => {
+    document.getElementById('comments-container').innerHTML = '';
     const commentsListElement = document.getElementById('comments-container');
     comments.forEach((comment) => {
-      commentsListElement.appendChild(
-          createListElement(comment.name, comment.comment, comment.postTime, comment.sentimentScore));
+      commentsListElement.appendChild(createListElement(
+          comment.name, comment.comment, comment.postTime,
+          comment.sentimentScore));
     });
-  });
-
-  fetch('/login-status').then((response) => response.json()).then((user) => {
-    document.getElementById('login-container').innerHTML = user.message;
-    if (!user.isLoggedIn) {
-      document.getElementById('login-message-container').innerText =
-          'You must be logged in to post comments.';
-      document.getElementById('login-link').innerHTML = user.message;
-      document.getElementById('post-button').style.display = 'none';
-      document.getElementById('delete-button').style.display = 'none';
-    } else {
-      document.getElementById('post-button').style.display = 'block';
-      document.getElementById('delete-button').style.display = 'block';
-    }
   });
 }
 
@@ -77,6 +69,42 @@ function deleteComments() {
  */
 function createListElement(name, comment, postTime, sentimentScore) {
   const liElement = document.createElement('p');
-  liElement.innerText = name + ': ' + comment + ' on ' + postTime + ' with a sentiment score of ' + sentimentScore;
+  liElement.innerText = name + ': ' + comment + ' on ' + postTime +
+      ' with a sentiment score of ' + sentimentScore;
   return liElement;
 }
+
+/**
+ * Fetches login status for the user and hides features for users not logged in.
+ */
+function getLogin() {
+  fetch('/login-status').then((response) => response.json()).then((user) => {
+    document.getElementById('login-container').innerHTML = user.message;
+    if (!user.isLoggedIn) {
+      document.getElementById('login-message-container').innerText =
+          'You must be logged in to post comments.';
+      document.getElementById('login-link').innerHTML = user.message;
+      document.getElementById('post-button').style.display = 'none';
+      document.getElementById('delete-button').style.display = 'none';
+    } else {
+      document.getElementById('post-button').style.display = 'block';
+      document.getElementById('delete-button').style.display = 'block';
+    }
+  });
+}
+
+// function getTranslation() {
+//   document.getElementById('comments-container').innerHTML = '';
+//   let language = document.getElementById('language');
+//   languageCode = language.options[language.selectedIndex].value;
+//   const url = '/data?language=' + languageCode;
+
+//   fetch(url).then((response) => response.json()).then((comments) => {
+//     const commentsListElement = document.getElementById('comments-container');
+//     comments.forEach((comment) => {
+//       commentsListElement.appendChild(createListElement(
+//           comment.name, comment.comment, comment.postTime,
+//           comment.sentimentScore));
+//     });
+//   });
+// }

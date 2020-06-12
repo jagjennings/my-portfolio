@@ -4,15 +4,15 @@
     <meta charset="UTF-8" />
     <title>Jag Jennings's Portfolio</title>
     <link rel="stylesheet" href="style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
   </head>
-  <body onload="getComments()" class="container-fluid pt-3">
-    <div id="content" class="container-fluid pt-3">
+  <body onload="getComments()" class="container-fluid pt-3 pb-3">
+    <div id="content">
       <header>
         <div class="row">
           <div class="col">
@@ -35,56 +35,66 @@
 
       <div>
         <p>
-          I am a rising Junior at Xavier University in New Orleans, pursuing a degree in Computer Science. I have
-          participated in several Computer Science oriented summer programs, including Google’s Engineering Practicum
-          Internship, Google's Computer Science Summer Institute and the University of California, Irvine’s ASPIRE
-          program. I have also taken various online courses in both Python and Java, including AP Computer Science A
-          through Edhesive.com and Introduction to iOS Mobile App Development through Edmentum.com.
+          I am a rising Junior at Xavier University in New Orleans, majoring in Computer Science with a double minor in
+          Math and Mandarin. I have participated in several Computer Science oriented summer programs, including
+          Google’s Engineering Practicum Internship, Google's Computer Science Summer Institute and the University of
+          California, Irvine’s ASPIRE program. I enjoy focusing on front-end development and this portfolio is a
+          culmination of 5 weeks of webdev walkthroughs provided as part of my STEP Internship. I hope you like it!
         </p>
 
         <p>
-          I graduated Summa Cum Laude from Mater Dei High School in California with a 4.4 GPA. Over the course of my high
-          school career, I took 10 Advanced Placement Classes with a 100% passing rate, for which I have been awarded the
-          title of AP Scholar with Honor by College Board. I have also spent the last four years studying both the
-          language and culture of China, taking Mandarin Chinese classes at both Mater Dei and Saddleback College. I have
-          continued to enhance my Mandarin proficiency in college, and I currently act as a Student Ambassador for the
-          US-China Strong Foundation, encouraging Americans throughout the country to study Chinese.
-        </p>
-
-        <p>
-          In addition to my Computer Science and Mandarin Chinese experience, I possess proficient math skills and take
-          pleasure in problem-solving and critical thinking. I also have a significant understanding of Civil Engineering
-          through my studies of 3-D design softwares Sketchup, AutoCAD, and SolidWorks.
+          I enjoy making 3-D art and ceramics, particularly wheel-throwing. I also love watching movies and TV shows and
+          I'm always looking for recommendations on what to watch next (feel free to drop suggestions in the comments
+          below)! One of my favorite shows to watch is Survivor on CBS which has been on for 40 seasons and 20 years
+          (longer than I've been alive).
         </p>
       </div>
 
-      <p>Click here to get a random fact about me:</p>
+      <p>Click the button to get a random fact about me:</p>
       <button type="button" onclick="addRandomFact()">Fact</button>
       <div id="fact-container"></div>
+      <br />
 
       <p>Click <a href="ceramics.html">here</a> to see some of my ceramic creations!</p>
+      <br />
 
       <div id="comment-section">
         <h3>See What People Are Saying About This Portfolio</h3>
+        <br />
 
         <h4>Comment Settings</h4>
+        <div class="row justify-content-center" id="comment-settings">
+          <div class="col-auto">
+            <p>Maximum number of comments you want to display:</p>
+            <select id="num">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5" selected>5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
 
-        <p>Maximum number of comments you want to display:</p>
-        <select id="num">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5" selected>5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
+            <button type="button" onclick="getComments()">Limit Comments</button>
+          </div>
+          <div class="col-auto">
+            <p>Language:</p>
+            <select id="language">
+              <option value="en">English</option>
+              <option value="zh">Chinese</option>
+              <option value="es">Spanish</option>
+              <option value="hi">Hindi</option>
+              <option value="ar">Arabic</option>
+            </select>
+
+            <button type="button" onclick="getComments()">Translate Comments</button>
+          </div>
+        </div>
         <br /><br />
-
-        <button type="button" onclick="getComments()">Limit Comments</button>
 
         <h4>Comments</h4>
 
@@ -93,7 +103,7 @@
         <div id="login-message-container"></div>
         <div id="login-link"></div>
 
-        <div id="post-button" style="display: none;">
+        <div id="post-button">
           <form action="/data" method="post">
             <p>Add a comment:</p>
             <textarea name="text-input"></textarea>
@@ -102,8 +112,9 @@
             <button type="submit">Post Comment</button>
           </form>
         </div>
+        <br />
 
-        <div id="delete-button" style="display: none;">
+        <div id="delete-button">
           <form action="/delete-data" method="post">
             <button type="submit">Delete All Comments</button>
           </form>

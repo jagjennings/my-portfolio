@@ -6,6 +6,20 @@
   font-weight: 200;
 }
 
+#comment-settings {
+  display: inline-block;
+  width: 50%;
+  border: solid;
+}
+
+#comment-settings .col-auto {
+  padding: 10px;
+}
+
+#delete-comment {
+  display: none;
+}
+
 header {
   background-color: lightblue;
 }
@@ -41,10 +55,12 @@ header {
   width: 50%;
   display: inline-block;
   text-align: left;
-  height: 150px;
+  height: 250px;
   overflow: auto;
+  border: solid;
+  padding: 10px;
 }
 
-/* #login-container {
-  text-align: right;
-} */
+#post-comment {
+  display: none;
+}
