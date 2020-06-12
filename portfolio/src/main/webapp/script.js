@@ -43,7 +43,7 @@ function getComments() {
   language = language.options[language.selectedIndex].value;
   const url = '/data?limit=' + num + '&language=' + language;
 
-  document.getElementById('comments-container').innerHTML = "Loading...";
+  document.getElementById('comments-container').innerHTML = 'Loading...';
 
   fetch(url).then((response) => response.json()).then((comments) => {
     document.getElementById('comments-container').innerHTML = '';
@@ -100,8 +100,9 @@ function getLogin() {
 //   const url = '/data?language=' + languageCode;
 
 //   fetch(url).then((response) => response.json()).then((comments) => {
-//     const commentsListElement = document.getElementById('comments-container');
-//     comments.forEach((comment) => {
+//     const commentsListElement =
+//     document.getElementById('comments-container'); comments.forEach((comment)
+//     => {
 //       commentsListElement.appendChild(createListElement(
 //           comment.name, comment.comment, comment.postTime,
 //           comment.sentimentScore));

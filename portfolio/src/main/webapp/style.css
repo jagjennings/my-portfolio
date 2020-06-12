@@ -1,9 +1,15 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 90%;
-  font-size: 20px;
-  font-weight: 200;
+#comments-container {
+  width: 50%;
+  display: inline-block;
+  text-align: left;
+  height: 250px;
+  overflow: auto;
+  border: solid;
+  padding: 10px;
+}
+
+#comment-section {
+  text-align: center;
 }
 
 #comment-settings {
@@ -12,8 +18,16 @@
   border: solid;
 }
 
-#comment-settings .col-auto {
+#comment-settings div {
   padding: 10px;
+}
+
+#content {
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  font-size: 20px;
+  font-weight: 200;
 }
 
 #delete-comment {
@@ -45,20 +59,6 @@ header {
   margin: 10px;
   max-height: 640px;
   max-width: 654px;
-}
-
-#comment-section {
-  text-align: center;
-}
-
-#comments-container {
-  width: 50%;
-  display: inline-block;
-  text-align: left;
-  height: 250px;
-  overflow: auto;
-  border: solid;
-  padding: 10px;
 }
 
 #post-comment {
