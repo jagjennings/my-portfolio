@@ -22,6 +22,8 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
@@ -42,11 +44,16 @@ public class DeleteDataServlet extends HttpServlet {
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
+    UserService userService = UserServiceFactory.getUserService();
 
+    String userEmail = userService.getCurrentUser().getEmail();
     ArrayList<Key> commentEntityKeys = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      Key commentEntityKey = entity.getKey();
-      commentEntityKeys.add(commentEntityKey);
+      String commentEmail = String.valueOf(entity.getProperty("name"));
+      if (userEmail.equals(commentEmail)) {
+        Key commentEntityKey = entity.getKey();
+        commentEntityKeys.add(commentEntityKey);
+      }
     }
 
     datastore.delete(commentEntityKeys);
