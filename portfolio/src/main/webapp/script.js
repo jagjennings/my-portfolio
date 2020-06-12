@@ -92,20 +92,3 @@ function getLogin() {
     }
   });
 }
-
-// function getTranslation() {
-//   document.getElementById('comments-container').innerHTML = '';
-//   let language = document.getElementById('language');
-//   languageCode = language.options[language.selectedIndex].value;
-//   const url = '/data?language=' + languageCode;
-
-//   fetch(url).then((response) => response.json()).then((comments) => {
-//     const commentsListElement =
-//     document.getElementById('comments-container'); comments.forEach((comment)
-//     => {
-//       commentsListElement.appendChild(createListElement(
-//           comment.name, comment.comment, comment.postTime,
-//           comment.sentimentScore));
-//     });
-//   });
-// }
