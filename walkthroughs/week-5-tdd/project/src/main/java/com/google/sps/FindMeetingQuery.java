@@ -23,17 +23,39 @@ import java.util.Set;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    ArrayList<TimeRange> timeRanges = new ArrayList<>();
-    ArrayList<TimeRange> badTimeRanges = new ArrayList<>();
-    ArrayList<TimeRange> badTimeRangesByEndTime = new ArrayList<>();
-
-    ArrayList<String> attendees = new ArrayList<String>(request.getAttendees());
-    long duration = request.getDuration();
-
-    if (attendees.isEmpty()) {
+    // Return all times if there are no attendees
+    if (request.getAttendees().isEmpty() && request.getOptionalAttendees().isEmpty()) {
       return Arrays.asList(TimeRange.WHOLE_DAY);
     } 
-    
+
+    ArrayList<String> mandatoryAttendees = new ArrayList<String>(request.getAttendees());
+    ArrayList<String> allAttendees = new ArrayList<String>(mandatoryAttendees);
+    allAttendees.addAll(request.getOptionalAttendees());
+
+    ArrayList<TimeRange> timeRanges = new ArrayList<TimeRange>(findTimeRanges(allAttendees, events, request));
+
+    // If no time ranges are available, exclude optional attendees and try again
+    if (!timeRanges.isEmpty()) {
+      return timeRanges;
+    } else {
+      timeRanges = new ArrayList<TimeRange>(findTimeRanges(mandatoryAttendees, events, request));
+    }
+
+    // If the request has no attendees after optional attendees are excluded, return an empty collection.
+    if (!mandatoryAttendees.isEmpty()) {
+      return timeRanges;
+    } else {
+      return new ArrayList<TimeRange>();
+    }
+  }
+
+  public Collection<TimeRange> findTimeRanges(ArrayList<String> attendees, Collection<Event> events, MeetingRequest request) {
+    ArrayList<TimeRange> timeRanges = new ArrayList<>();
+    ArrayList<TimeRange> badTimeRanges = new ArrayList<>();
+
+    long duration = request.getDuration();
+
+    // Make a list of all unavailable time ranges for all attendees
     for (Event event: events) {
       for (String attendee: attendees) {
         if (event.getAttendees().contains(attendee)) {
@@ -44,6 +66,7 @@ public final class FindMeetingQuery {
 
     int availableStartTime = TimeRange.START_OF_DAY;
 
+    // Store all time ranges between unavailable time ranges that fit the duration of the meeting
     for (TimeRange timeRange: badTimeRanges) {
       if (timeRange.end() > availableStartTime) {
         if (timeRange.start() - availableStartTime >= duration) {
@@ -54,10 +77,12 @@ public final class FindMeetingQuery {
       }
     }
 
+    // Include time from the end of the last unavailable time range to the end of the day
     if (TimeRange.END_OF_DAY - availableStartTime >= duration) {
       timeRanges.add(TimeRange.fromStartEnd(availableStartTime, TimeRange.END_OF_DAY, true));
     }
 
+    // Check result for overlap with unavailable times and remove overlapping times
     for (int i = timeRanges.size() - 1; i >= 0; i--) {
       for (TimeRange badTimeRange: badTimeRanges) {
         if (timeRanges.get(i).overlaps(badTimeRange)) {
