@@ -11,7 +11,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
   </head>
-  <body onload="getComments()" class="container-fluid pt-3 pb-3">
+  <body onload="getComments(); getLogin();" class="container-fluid pt-3 pb-3">
     <div id="content">
       <header>
         <div class="row">
@@ -23,7 +23,7 @@
         </div>
       </header>
       <br />
-
+ 
       <div id="images" class="row justify-content-center">
         <div class="col align-self-start"><img src="/images/pool.jpg" alt="Me playing pool" /></div>
         <div class="col align-self-center"><img src="/images/throwing.jpg" alt="Me Throwing on the Wheel" /></div>
@@ -32,16 +32,16 @@
         <div class="col align-self-start"><img src="/images/voice.jpg" alt="Me on the Voice" /></div>
       </div>
       <br />
-
+ 
       <div>
         <p>
           I am a rising Junior at Xavier University in New Orleans, majoring in Computer Science with a double minor in
-          Math and Mandarin. I have participated in several Computer Science oriented summer programs, including
+          Math and Mandarin Chinese. I have participated in several Computer Science oriented summer programs, including
           Google’s Engineering Practicum Internship, Google's Computer Science Summer Institute and the University of
           California, Irvine’s ASPIRE program. I enjoy focusing on front-end development and this portfolio is a
           culmination of 5 weeks of webdev walkthroughs provided as part of my STEP Internship. I hope you like it!
         </p>
-
+ 
         <p>
           I enjoy making 3-D art and ceramics, particularly wheel-throwing. I also love watching movies and TV shows and
           I'm always looking for recommendations on what to watch next (feel free to drop suggestions in the comments
@@ -49,19 +49,19 @@
           (longer than I've been alive).
         </p>
       </div>
-
+ 
       <p>Click the button to get a random fact about me:</p>
       <button type="button" onclick="addRandomFact()">Fact</button>
       <div id="fact-container"></div>
       <br />
-
+ 
       <p>Click <a href="ceramics.html">here</a> to see some of my ceramic creations!</p>
       <br />
-
+ 
       <div id="comment-section">
         <h3>See What People Are Saying About This Portfolio</h3>
         <br />
-
+ 
         <h4>Comment Settings</h4>
         <div id="comment-settings">
           <div>
@@ -78,7 +78,7 @@
               <option value="9">9</option>
               <option value="10">10</option>
             </select>
-
+ 
             <button type="button" onclick="getComments()">Limit Comments</button>
           </div>
           <hr />
@@ -91,36 +91,56 @@
               <option value="hi">Hindi</option>
               <option value="ar">Arabic</option>
             </select>
-
+ 
             <button type="button" onclick="getComments()">Translate Comments</button>
           </div>
         </div>
         <br /><br />
-
+ 
         <h4>Comments</h4>
-
+ 
         <ul id="comments-container"></ul>
-
+ 
         <div id="login-message-container"></div>
         <div id="login-link"></div>
-
+ 
         <div id="post-button">
           <form action="/data" method="post">
             <p>Add a comment:</p>
             <textarea name="text-input"></textarea>
             <br /><br />
-
+ 
             <button type="submit">Post Comment</button>
           </form>
         </div>
         <br />
-
+ 
         <div id="delete-button">
           <form action="/delete-data" method="post">
             <button type="submit">Delete My Comments</button>
           </form>
         </div>
       </div>
+      <br /><br />
+      <footer>
+        <div class="row">
+          <p class="col">Created by Jag Jennings</p>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <p><a href="https://github.com/jagjennings">GitHub</a></p>
+          </div>
+          <div class="col-auto">
+            <p><a href="https://linkedin.com/in/jagarijennings">Linkedin</a></p>
+          </div>
+          <div class="col-auto">
+            <p><a href="https://instagram.com/jagjennings">Instagram</a></p>
+          </div>
+          <div class="col-auto">
+            <p><a href="https://facebook.com/jagjennings">FaceBook</a></p>
+          </div>
+        </div>
+      </footer>
     </div>
   </body>
 </html>
