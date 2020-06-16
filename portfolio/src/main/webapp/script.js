@@ -78,7 +78,6 @@ function createListElement(name, comment, postTime, sentimentScore) {
  * Fetches login status for the user and hides features for users not logged in.
  */
 function getLogin() {
-  document.getElementById('login-container').innerHTML = 'Loading...';
   fetch('/login-status').then((response) => response.json()).then((user) => {
     document.getElementById('login-container').innerHTML = user.message;
     if (!user.isLoggedIn) {
