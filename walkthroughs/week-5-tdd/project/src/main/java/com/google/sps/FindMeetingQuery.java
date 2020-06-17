@@ -25,7 +25,7 @@ import java.util.Set;
 public final class FindMeetingQuery {
 
   /**
-  * Handles optional attendees and determines who to include in the meeting request
+  * Determines which attendees to include and returns time ranges that accomadate those attendees
   */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     long duration = request.getDuration();
@@ -44,12 +44,11 @@ public final class FindMeetingQuery {
     // If no time ranges are available, exclude optional attendees and try again
     if (!timeRanges.isEmpty()) {
       return timeRanges;
-    } else {
-      timeRanges = new ArrayList<TimeRange>(findAvailableTimeRanges(mandatoryAttendees, events, duration));
     }
 
     // If the request has no attendees after optional attendees are excluded, return an empty collection.
     if (!mandatoryAttendees.isEmpty()) {
+      timeRanges = new ArrayList<TimeRange>(findAvailableTimeRanges(mandatoryAttendees, events, duration));
       return timeRanges;
     } else {
       return new ArrayList<TimeRange>();
@@ -72,9 +71,7 @@ public final class FindMeetingQuery {
       }
     }
 
-    if (!badTimeRanges.isEmpty()) {
-      Collections.sort(badTimeRanges, TimeRange.ORDER_BY_START);
-    }
+    Collections.sort(badTimeRanges, TimeRange.ORDER_BY_START);
 
     int availableStartTime = TimeRange.START_OF_DAY;
 
