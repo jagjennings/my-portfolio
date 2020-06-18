@@ -52,8 +52,7 @@ public final class FindMeetingQuery {
 
     // If the request has no attendees after optional attendees are excluded, return an empty collection.
     if (!mandatoryAttendees.isEmpty()) {
-      timeRanges = new ArrayList<TimeRange>(findAvailableTimeRanges(mandatoryAttendees, events, duration));
-      return timeRanges;
+      return new ArrayList<TimeRange>(findAvailableTimeRanges(mandatoryAttendees, events, duration));
     } else {
       return new ArrayList<TimeRange>();
     }
