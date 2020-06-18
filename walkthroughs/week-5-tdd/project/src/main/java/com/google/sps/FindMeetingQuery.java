@@ -26,6 +26,10 @@ public final class FindMeetingQuery {
 
   /**
   * Determines which attendees to include and returns time ranges that accomadate those attendees
+  * If there are no mandatory attendees and no available times for optional attendees, an
+  * empty list will be returned. If there are available times for both the optional and mandatory
+  * attendees, those available times will be returned. If there are no available times to accomodate
+  * both optional and mandatory attendees, only mandatory attendees will be considered.
   */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     long duration = request.getDuration();
