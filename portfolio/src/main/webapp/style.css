@@ -1,11 +1,11 @@
 #comments-container {
-  border: solid;
-  display: inline-block;
-  height: 250px;
   width: 50%;
-  overflow: auto;
-  padding: 10px;
+  display: inline-block;
   text-align: left;
+  height: 250px;
+  overflow: auto;
+  border: solid;
+  padding: 10px;
 }
 
 #comment-section {
@@ -13,35 +13,25 @@
 }
 
 #comment-settings {
-  border: solid;
   display: inline-block;
   width: 50%;
-  }
+  border: solid;
+}
 
 #comment-settings div {
   padding: 10px;
 }
 
 #content {
-  font-size: 20px;
-  font-weight: 200;
   margin-left: auto;
   margin-right: auto;
   width: 90%;
+  font-size: 20px;
+  font-weight: 200;
 }
 
 #delete-comment {
   display: none;
-}
-
-footer {
-  background-color: gainsboro;
-  margin: auto;
-  }
-
-footer div {
-  text-align: center;
-  width: 100%;
 }
 
 header {
@@ -54,10 +44,9 @@ header {
 }
 
 #images img {
-  padding: 10px;
   text-align: center;
   width: 100%;
-  
+  padding: 10px;
 }
 
 .image-thumbnails {
